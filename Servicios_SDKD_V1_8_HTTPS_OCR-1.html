@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1769e0" />
+  <title>Servicios SDKD Logística y Transporte · V1.8</title>
+  <style>
+:root{
+  --blue:#1769e0; --blue2:#eaf2ff; --green:#19b66a; --red:#e64b4b; --orange:#f59e0b;
+  --ink:#13233b; --muted:#687386; --line:#e8ebf1; --bg:#f5f7fb; --card:#fff;
+  --shadow:0 4px 18px rgba(22,40,80,.08); --r:20px;
+}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}.shell{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:86px}.topbar{position:sticky;top:0;z-index:10;background:#fff;padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.topbar h1{font-size:23px;margin:0}.sub{font-size:13px;color:var(--muted)}
+.card{background:var(--card);margin:14px 16px;padding:16px;border-radius:var(--r);box-shadow:var(--shadow)}.hero{background:linear-gradient(135deg,#1769e0,#2c80ff);color:#fff}.hero .sub{color:#dbe9ff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;min-height:116px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow)}.tile strong{font-size:17px}.tile .ico{font-size:28px}.badge{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;background:var(--blue2);color:var(--blue)}.badge.green{background:#e9f8f1;color:#138652}.badge.red{background:#fff0f0;color:#c73131}.badge.orange{background:#fff5df;color:#ac6c00}
+.btn{border:0;border-radius:14px;padding:14px 16px;font-weight:700;background:var(--blue);color:#fff;width:100%;cursor:pointer}.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn.green{background:var(--green)}.btn.red{background:var(--red)}.btn.small{width:auto;padding:10px 14px;border-radius:12px}.row{display:flex;align-items:center;gap:10px}.between{display:flex;align-items:center;justify-content:space-between;gap:12px}.stack{display:grid;gap:12px}.field{display:grid;gap:7px}.field label{font-size:13px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;border:1px solid #dfe4ec;border-radius:14px;padding:13px 14px;background:#fff}.section-title{font-weight:800;margin:16px 16px 8px;font-size:17px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 16px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}.stat b{display:block;font-size:24px;margin-top:4px}.blue{color:var(--blue)}.green{color:var(--green)}.red{color:var(--red)}.orange{color:var(--orange)}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 8px calc(10px + env(safe-area-inset-bottom));z-index:20}.nav button{background:transparent;border:0;color:var(--muted);display:grid;gap:3px;place-items:center;font-size:12px}.nav button.active{color:var(--blue);font-weight:800}.nav .icon{font-size:20px}
+.list{display:grid;gap:10px;margin:0 16px}.stop{background:#fff;border-radius:18px;border:1px solid var(--line);padding:14px;box-shadow:var(--shadow)}.stop h3{margin:4px 0 8px;font-size:17px}.stop .meta{font-size:13px;color:var(--muted)}.stop .num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-weight:800}.pillrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.pill{font-size:12px;border-radius:8px;padding:5px 8px;background:var(--blue2);color:#195aaf}.actions{display:flex;gap:10px;margin-top:12px}.actions .btn{padding:11px 12px}.camera{height:330px;background:linear-gradient(145deg,#18202b,#090d12);margin:0 16px;border-radius:22px;display:grid;place-items:center;color:#fff;position:relative;overflow:hidden}.scanframe{width:78%;height:54%;border:3px solid #49d2c2;border-radius:18px;display:grid;place-items:center;text-align:center;padding:20px}.scanframe:before,.scanframe:after{content:"";position:absolute}.preview{width:100%;max-height:220px;object-fit:cover;border-radius:14px;border:1px solid var(--line)}.tabs{display:flex;gap:8px;margin:12px 16px;overflow:auto}.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px;white-space:nowrap}.tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff}.notice{margin:12px 16px;padding:13px 14px;border-radius:14px;background:#fff7d6;color:#705900}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}.table th{color:var(--muted)}.amount{font-weight:800;text-align:right}.empty{padding:28px 18px;text-align:center;color:var(--muted)}.login{min-height:100vh;display:grid;align-content:center;padding:24px;background:linear-gradient(160deg,#1769e0 0 35%,#f5f7fb 35%)}.login .brand{color:#fff;margin-bottom:26px}.login .brand h1{font-size:30px;margin:0}.login .card{margin:0;padding:20px}.login .role-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.role{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;text-align:left}.role.active{border:2px solid var(--blue);background:var(--blue2)}.map{height:430px;margin:0 16px;border-radius:22px;background:linear-gradient(#e9eef3,#eef3f8);position:relative;overflow:hidden;border:1px solid var(--line)}.road{position:absolute;background:#d0d8e2;border-radius:99px}.pin{position:absolute;width:36px;height:36px;border-radius:12px 12px 12px 3px;transform:rotate(-45deg);display:grid;place-items:center;color:#fff;font-weight:800;box-shadow:0 4px 12px rgba(0,0,0,.12)}.pin span{transform:rotate(45deg)}.pin.pending{background:var(--blue)}.pin.done{background:var(--green)}.pin.fail{background:var(--red)}.footer-space{height:90px}
+
+.scan-status{margin:12px 16px;padding:12px 14px;border-radius:14px;background:#eef6ff;color:#184f95;font-size:13px}.photo-wrap{margin:0 16px}.photo-wrap img{width:100%;max-height:280px;object-fit:contain;background:#111;border-radius:18px}.mini-actions{display:flex;gap:8px;flex-wrap:wrap}.mini-actions .btn{flex:1;min-width:130px}.hint{font-size:12px;color:var(--muted);line-height:1.45}.successbox{background:#eaf8f1;color:#126b43;padding:12px 14px;border-radius:14px}.warnbox{background:#fff7e8;color:#8a5a00;padding:12px 14px;border-radius:14px}.codebox{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;word-break:break-all;background:#f5f7fb;border:1px solid var(--line);padding:10px;border-radius:12px}
+
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+const $ = (s)=>document.querySelector(s);
+const state = JSON.parse(localStorage.getItem('logisticaV1')||'null') || {
+  user:null, role:'repartidor', jornada:null, packages:[], stops:[], incidents:[],
+  companies:{
+    'EcoScooting':{rates:{'46470':{first:1,extra:.2},'46910':{first:1,extra:.2},'46469':{first:1.1,extra:.2}}},
+    'Nueva logística':{rates:{'*':{first:1.3,extra:1.3}}}
+  },
+  history:[
+    {date:'01/09/2026',delivered:142,incidents:3,earnings:96.20},
+    {date:'02/09/2026',delivered:138,incidents:4,earnings:92.40}
+  ]
+};
+state.drivers=state.drivers||[];
+state.zones=state.zones||[];
+state.geoMemory=state.geoMemory||{};
+state.packages.forEach(p=>{if(!('geoStatus' in p))p.geoStatus='pending';});
+state.integrations=state.integrations||{};
+state.scanStats=state.scanStats||{duplicates:0,pending:0};
+state.packageArchive=state.packageArchive||[];
+function ensureEvents(p){
+ if(!p.events)p.events=[];
+ if(!p.events.length&&p.registeredAt)p.events.push({at:p.registeredAt,type:'received',label:'Paquete recibido'});
+ return p.events;
+}
+[...state.packages,...state.packageArchive].forEach(ensureEvents);
+function addPkgEvent(p,type,label,details){ensureEvents(p).push({at:new Date().toISOString(),type,label,details:details||''})}
+function fmtDateTime(v){try{return new Date(v).toLocaleString('es-ES')}catch(e){return v||''}}
+function pkgMissing(p){return ['cp','locality','name','phone','address'].filter(k=>!String(p[k]||'').trim())}
+function pkgStatusText(p){return p.status==='delivered'?'Entregado':p.status==='incident'?'Incidencia':p.receiveStatus==='received'?'Recibido':'Registrado'}
+function save(){state.packages.forEach(p=>{if(p.photoData)delete p.photoData});localStorage.setItem('logisticaV1',JSON.stringify(state))}
+function money(n){return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n)}
+function shell(title,body,active='home'){
+ return `<div class="shell"><div class="topbar"><div><h1>${title}</h1><div class="sub">Servicios SDKD Logística y Transporte · V1.8</div></div><span class="badge">${state.role==='admin'?'Administrador':'Repartidor'}</span></div>${body}<div class="nav">
+ <button data-go="home" class="${active==='home'?'active':''}"><span class="icon">⌂</span>Hogar</button>
+ <button data-go="route" class="${active==='route'?'active':''}"><span class="icon">☷</span>Lista</button>
+ <button data-go="map" class="${active==='map'?'active':''}"><span class="icon">⌖</span>Mapa</button>
+ <button data-go="history" class="${active==='history'?'active':''}"><span class="icon">↺</span>Historial</button>
+ </div></div>`
+}
+function render(){ if(!state.user) return login(); const page=location.hash.replace('#','')||'home'; ({home,jornada,receiving,scan,review,packages,lots,route,map,close,history,drivers,zones,geoPending,geoMemory,driverRoute}[page]||home)(); bindNav(); }
+function login(){
+ document.getElementById('app').innerHTML=`<div class="login"><div class="brand"><h1>Servicios SDKD</h1><div>Logística y Transporte</div></div><div class="card stack"><div class="field"><label>Nombre</label><input id="name" value="Carlos"/></div><div><div class="sub" style="margin-bottom:8px">Selecciona tu perfil</div><div class="role-row"><button class="role active" data-role="repartidor">👤<br><b>Repartidor</b></button><button class="role" data-role="admin">🛡️<br><b>Administrador</b></button></div></div><button class="btn" id="loginBtn">Entrar</button></div></div>`;
+ let role='repartidor'; document.querySelectorAll('.role').forEach(b=>b.onclick=()=>{role=b.dataset.role;document.querySelectorAll('.role').forEach(x=>x.classList.remove('active'));b.classList.add('active')});
+ $('#loginBtn').onclick=()=>{state.user=$('#name').value||'Usuario';state.role=role;save();location.hash='home';render()}
+}
+function home(){
+ const j=state.jornada; const body=`<div class="card hero"><div class="between"><div><div class="sub">Hola</div><h2 style="margin:4px 0">${state.user}</h2></div><span class="badge green">${j?'Jornada activa':'Sin jornada'}</span></div>${j?`<div style="margin-top:14px"><b>${j.company}</b> · ${j.zone||'Zona sin definir'}<br><span class="sub">${state.packages.length} paquetes cargados</span></div>`:''}</div>
+ <div class="section-title">Entrada rápida</div><div class="grid" style="margin:0 16px"><button class="tile" data-go="jornada"><span class="ico">📦</span><strong>Mi jornada</strong><span class="sub">Crear o recibir asignación</span></button><button class="tile" data-go="receiving"><span class="ico">📲</span><strong>Recepción</strong><span class="sub">Asignados y recibidos</span></button><button class="tile" data-go="packages"><span class="ico">📋</span><strong>Paquetes</strong><span class="sub">Consultar y editar registrados</span></button><button class="tile" data-go="review"><span class="ico">🔎</span><strong>Revisar</strong><span class="sub">Completar datos pendientes</span></button><button class="tile" data-go="route"><span class="ico">🗺️</span><strong>Ruta</strong><span class="sub">Lista de entregas</span></button><button class="tile" data-go="history"><span class="ico">↺</span><strong>Historial</strong><span class="sub">Jornadas y ganancias</span></button><button class="tile" data-go="close"><span class="ico">⚠️</span><strong>Incidencias</strong><span class="sub">Cierre de jornada</span></button></div>
+ ${state.role==='admin'?`<div class="section-title">Administrador</div><div class="grid" style="margin:0 16px"><button class="tile" data-go="drivers"><span class="ico">👥</span><strong>Repartidores</strong><span class="sub">Perfiles y rutas</span></button><button class="tile" data-go="zones"><span class="ico">✏️</span><strong>Zonas</strong><span class="sub">Dibujar y asignar</span></button><button class="tile" data-go="geoPending"><span class="ico">📍</span><strong>Sin geolocalizar</strong><span class="sub">Corregir direcciones</span></button><button class="tile" data-go="geoMemory"><span class="ico">🧠</span><strong>Direcciones aprendidas</strong><span class="sub">Ubicaciones verificadas</span></button></div><div class="card"><div class="between"><div><b>Tarifas configuradas</b><div class="sub">EcoScooting y Nueva logística</div></div><span class="badge">Solo admin</span></div></div>`:''}`;
+ $('#app').innerHTML=shell('Hogar',body,'home')
+}
+function jornada(){
+ const body=`<div class="card stack"><h2 style="margin:0">Nueva jornada</h2><div class="field"><label>Empresa logística</label><select id="company"><option>EcoScooting</option><option>Nueva logística</option></select></div><div class="field"><label>Zona / ruta</label><input id="zone" placeholder="Ej. Catarroja / Albal" value="${(state.jornada&&state.jornada.zone)||''}"/></div><div class="field"><label>Paquetes asignados (opcional)</label><input id="assigned" inputmode="numeric" placeholder="150"/></div><button class="btn" id="start">Crear jornada y abrir recepción</button></div>`;
+ $('#app').innerHTML=shell('Mi jornada',body); $('#start').onclick=()=>{state.jornada={date:new Date().toLocaleDateString('es-ES'),company:$('#company').value,zone:$('#zone').value,assigned:+($('#assigned').value||0),status:'carga'};save();location.hash='receiving';render()}
+}
+
+function receiving(){
+ if(!state.jornada){ location.hash='jornada'; return render(); }
+ state.packages.forEach(p=>{ if(!p.receiveStatus) p.receiveStatus=p.status==='assigned'?'assigned':'received'; });
+ const assignedTarget=state.jornada.assigned||0;
+ const received=state.packages.filter(p=>p.receiveStatus==='received').length;
+ const knownAssigned=state.packages.filter(p=>p.receiveStatus==='assigned').length;
+ const totalAssigned=Math.max(assignedTarget, received+knownAssigned);
+ const pending=Math.max(0,totalAssigned-received);
+ const body=`<div class="stats"><div class="stat">Asignados<b class="blue">${totalAssigned}</b></div><div class="stat">Recibidos<b class="green">${received}</b></div><div class="stat">Pendientes<b class="orange">${pending}</b></div></div>
+ <div class="card stack"><div><b>Recepción de almacén</b><div class="sub">Cada código confirmado queda ligado a la jornada. Más adelante esta pantalla recibirá automáticamente la lista desde la app de la empresa cuando tengamos una vía de integración.</div></div>
+ <div class="field"><label>Código del paquete</label><input id="receiveCode" autocomplete="off" placeholder="Ej. CC340669009DE"/></div>
+ <button class="btn green" id="markReceived">Confirmar recibido</button>
+ <button class="btn secondary" id="receiveCamera">📷 Escanear con cámara</button>
+ <div id="receiveMsg" class="hint">Puedes escribir/pegar el código o usar la cámara. Los duplicados se bloquean.</div></div>
+ <div class="section-title">Servicios recibidos</div><div class="list">${state.packages.filter(p=>p.receiveStatus==='received').slice().reverse().map((p,i)=>`<div class="stop"><div class="between"><div><b>${p.code||'Sin código'}</b><div class="meta">${p.address||'Datos de dirección pendientes'} ${p.cp?'· '+p.cp:''}</div></div><span class="badge green">Recibido</span></div></div>`).join('')||'<div class="empty">Todavía no hay paquetes recibidos en esta jornada.</div>'}</div>
+ <div class="card stack"><button class="btn" data-go="scan">Añadir/revisar datos de etiquetas</button><button class="btn secondary" data-go="lots">Ver lotes detectados</button></div>`;
+ $('#app').innerHTML=shell('Recepción',body);
+ const confirmCode=(raw)=>{const code=(raw||'').trim().toUpperCase(); if(!code)return; let p=state.packages.find(x=>(x.code||'').toUpperCase()===code); if(p&&p.receiveStatus==='received'){ $('#receiveMsg').innerHTML='<span class="red"><b>Duplicado:</b> ese paquete ya estaba recibido.</span>'; return; } if(!p){ p={id:'P'+Date.now()+Math.random().toString(16).slice(2),code,cp:'',locality:'',name:'',address:'',phone:'',company:state.jornada.company,status:'pending',receiveStatus:'received',registeredAt:new Date().toISOString(),needsReview:true,needsReviewFields:['cp','locality','name','phone','address'],events:[]}; addPkgEvent(p,'received','Paquete recibido en almacén'); state.packages.push(p); applyKnownGeo(p); } else {p.receiveStatus='received'; if(!p.status||p.status==='assigned')p.status='pending';} rebuildStops(); save(); $('#receiveMsg').innerHTML='<span class="green"><b>Recibido:</b> '+code+'</span>'; setTimeout(render,450);};
+ $('#markReceived').onclick=()=>confirmCode($('#receiveCode').value);
+ $('#receiveCode').addEventListener('keydown',e=>{if(e.key==='Enter')confirmCode(e.target.value)});
+ $('#receiveCamera').onclick=()=>{location.hash='scan';render()};
+}
+
+function scan(){
+ const company=(state.jornada&&state.jornada.company)||Object.keys(state.companies)[0]||'EcoScooting';
+ const received=state.packages.filter(p=>p.receiveStatus==='received').length;
+ const reviewCount=state.packages.filter(p=>p.needsReview).length;
+ const body=`<div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat">Paquetes recibidos<b class="blue" id="scanCount">${received}</b></div><div class="stat">Revisar<b class="red" id="pendingCount">${reviewCount}</b></div></div>
+ <div class="camera" id="cameraBox"><video id="cameraVideo" playsinline autoplay muted style="display:none;width:100%;height:100%;object-fit:cover"></video><div class="scanframe" id="cameraPlaceholder">📷<br><b>Recepción continua</b><br><span class="sub" style="color:#d8e2ee">Lee el código y después intenta extraer nombre, identificador de teléfono, dirección, CP y localidad de la etiqueta.</span></div></div>
+ <div class="card stack">
+  <div class="field"><label>Empresa logística</label><select id="scanCompany">${Object.keys(state.companies).map(c=>`<option ${c===company?'selected':''}>${esc(c)}</option>`).join('')}</select></div>
+  <div class="mini-actions"><button class="btn" id="openCamera" type="button">📷 Abrir cámara</button><button class="btn green" id="takeShot" type="button" style="display:none">Tomar foto</button></div>
+  <button class="btn secondary" id="nativeCamera" type="button">📱 Abrir cámara del móvil</button>
+  <input id="photo" type="file" accept="image/*" capture="environment" style="display:none"/>
+  <div class="hint" id="cameraHelp">En HTTPS la cámara queda abierta y registra códigos de forma continua. Si abres el archivo desde Descargas, se usa la cámara compatible de Android como respaldo.</div>
+  <div id="photoWrap" class="photo-wrap" style="display:none;margin:0"><img id="photoPreview" alt="Etiqueta capturada"></div>
+  <div id="scanStatus" class="hint">Listo para recibir el primer paquete.</div>
+  <div class="field"><label>Código / seguimiento</label><input id="code" autocomplete="off" autocapitalize="characters" placeholder="Escaneado o manual"/></div>
+  <div class="grid">
+   <div class="field"><label>Código postal</label><input id="cp" maxlength="5" inputmode="numeric" placeholder="46470"/></div>
+   <div class="field"><label>Localidad</label><input id="locality" autocomplete="off" placeholder="Catarroja"/></div>
+  </div>
+  <div class="field"><label>Nombre</label><input id="name" autocomplete="off"/></div>
+  <div class="field"><label>Teléfono</label><input id="phone" autocomplete="off"/></div>
+  <div class="field"><label>Dirección</label><input id="address" autocomplete="off"/></div>
+  <button class="btn green" id="registerNow" type="button">✓ Registrar y continuar</button>
+  <button class="btn secondary" data-go="review">Revisar pendientes</button><button class="btn secondary" data-go="packages">Ver paquetes registrados</button>
+ </div>
+ <div class="notice"><b>V1.8:</b> recepción continua por HTTPS con OCR mejorado. Endereza la etiqueta automáticamente, prueba varias orientaciones y mejora el contraste antes de leer nombre, teléfono/ID, dirección, CP y localidad.</div>`;
+ $('#app').innerHTML=shell('Recepción continua · V1.8',body);
+ const video=$('#cameraVideo'), placeholder=$('#cameraPlaceholder'), openCamera=$('#openCamera'), takeShot=$('#takeShot'), nativeCamera=$('#nativeCamera');
+ const photo=$('#photo'), preview=$('#photoPreview'), wrap=$('#photoWrap'), status=$('#scanStatus');
+ let stream=null,currentFile=null,ocrLoading=null,detector=null,scanTimer=null,scanBusy=false,lastContinuousCode='',lastContinuousAt=0,ocrQueue=[],ocrWorking=false;
+ function setStatus(text,type){status.className=type||'hint';status.textContent=text}
+ function openCompatibleCamera(){
+  stopCamera();
+  setStatus('Abriendo cámara compatible de Android…','scan-status');
+  photo.click();
+ }
+ async function startCamera(){
+  if(location.protocol==='file:' || location.protocol==='content:' || !window.isSecureContext || !(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){
+   setStatus('Modo local detectado. Abriendo la cámara del móvil.','successbox');
+   openCompatibleCamera();
+   return;
+  }
+  try{
+   stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},audio:false});
+   video.srcObject=stream;await video.play();video.style.display='block';placeholder.style.display='none';takeShot.style.display='none';openCamera.textContent='Pausar cámara';
+   if('BarcodeDetector' in window){
+    const formats=await BarcodeDetector.getSupportedFormats();detector=new BarcodeDetector({formats});
+    scanTimer=setInterval(scanContinuous,300);
+    setStatus('Cámara continua activa. Acerca una etiqueta y cambia a la siguiente cuando vibre.','successbox');
+   }else setStatus('Cámara activa, pero este navegador no permite lectura automática. Usa lector/PDA o la cámara del móvil.','warnbox');
+  }catch(e){
+   const denied=e&&(['NotAllowedError','PermissionDeniedError'].includes(e.name));
+   setStatus(denied?'Chrome bloqueó la cámara en directo. Usa “Abrir cámara del móvil”.':'No pude iniciar la cámara continua. Usa “Abrir cámara del móvil”.','warnbox');
+  }
+ }
+ function stopCamera(){if(scanTimer){clearInterval(scanTimer);scanTimer=null}detector=null;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null;video.style.display='none';placeholder.style.display='grid';takeShot.style.display='none';openCamera.textContent='📷 Abrir cámara'}
+ function resetForNext(autoOpen){currentFile=null;photo.value='';wrap.style.display='none';preview.src='';['code','cp','locality','name','phone','address'].forEach(id=>$('#'+id).value='');if(autoOpen&&!stream)setTimeout(startCamera,350)}
+ function updateCounters(){ $('#scanCount').textContent=state.packages.filter(p=>p.receiveStatus==='received').length;$('#pendingCount').textContent=state.packages.filter(p=>p.needsReview).length; }
+ function captureFrameFile(){
+  if(!stream||video.readyState<2)return null;
+  const c=document.createElement('canvas');c.width=video.videoWidth||1280;c.height=video.videoHeight||720;c.getContext('2d').drawImage(video,0,0,c.width,c.height);
+  return new Promise(r=>c.toBlob(b=>r(b?new File([b],'etiqueta-'+Date.now()+'.jpg',{type:'image/jpeg'}):null),'image/jpeg',0.88));
+ }
+ async function scanContinuous(){
+  if(!detector||scanBusy||!stream||video.readyState<2)return;
+  scanBusy=true;
+  try{
+   const found=await detector.detect(video);
+   if(found&&found.length){
+    const code=String(found[0].rawValue||'').trim().toUpperCase(); const now=Date.now();
+    if(code && (code!==lastContinuousCode || now-lastContinuousAt>1800)){
+      lastContinuousCode=code;lastContinuousAt=now;
+      if(state.packages.some(p=>(p.code||'').trim().toUpperCase()===code)){
+        setStatus('⚠ PAQUETE YA RECIBIDO · '+code,'warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);
+      }else{
+        const file=await captureFrameFile();
+        registerContinuous(code,file);
+      }
+    }
+   }
+  }catch(e){}
+  scanBusy=false;
+ }
+ function registerContinuous(code,file){
+  const p={id:'P'+Date.now()+Math.random().toString(16).slice(2),code,company:$('#scanCompany').value,cp:'',locality:'',name:'',address:'',phone:'',status:'pending',receiveStatus:'received',geoStatus:'pending',photoName:file?file.name:'',registeredAt:new Date().toISOString()};
+  p.needsReviewFields=pkgMissing(p);p.needsReview=true;addPkgEvent(p,'received','Paquete recibido por cámara continua','Lectura de etiqueta en segundo plano');state.packages.push(p);rebuildStops();
+  try{save()}catch(e){state.packages.pop();setStatus('No se pudo guardar. El almacenamiento del navegador está lleno.','warnbox');return}
+  updateCounters();if(navigator.vibrate)navigator.vibrate(80);setStatus('✓ Recibido '+code+' · puedes pasar al siguiente paquete.','successbox');
+  if(file){ocrQueue.push({id:p.id,file});processOcrQueue()}
+ }
+ async function processOcrQueue(){
+  if(ocrWorking||!ocrQueue.length)return;ocrWorking=true;
+  const job=ocrQueue.shift();const p=state.packages.find(x=>x.id===job.id);
+  if(p){
+   try{
+    const data=await ocrDataFromFile(job.file);
+    if(data){if(data.cp)p.cp=data.cp;if(data.locality)p.locality=data.locality;if(data.name)p.name=data.name;if(data.phone)p.phone=data.phone;if(data.address)p.address=data.address;if(data.company)p.company=data.company;p.needsReviewFields=pkgMissing(p);p.needsReview=p.needsReviewFields.length>0;applyKnownGeo(p);rebuildStops();addPkgEvent(p,'ocr',p.needsReview?'Etiqueta leída parcialmente':'Etiqueta leída','Pendiente: '+(p.needsReviewFields.join(', ')||'ninguno'));save();updateCounters()}
+   }catch(e){}
+  }
+  ocrWorking=false;setTimeout(processOcrQueue,80);
+ }
+
+ function parseLabelText(text){
+  const raw=String(text||'').replace(/\r/g,'');
+  const lines=raw.split('\n').map(x=>x.replace(/\s+/g,' ').trim()).filter(Boolean);
+  const low=s=>s.toLowerCase();
+  const result={cp:'',locality:'',name:'',phone:'',address:'',company:'',confidence:{}};
+  const junk=/\b(delivery|shipment|tracking|parcel|package|route|ruta|sender|remitente|weight|peso|barcode|qr|spain|españa|valencia|wnb|shn|imile|eco\s*scooting|ecoscooting|quick\s*rabbit)\b/i;
+  const road=/\b(calle|carrer|avinguda|avenida|av\.?|paseo|passeig|plaza|plaça|camino|camí|carretera|ctra\.?|ronda|traves[ií]a|urbanizaci[oó]n|pol[ií]gono|partida|pla|camí|cv[- ]?\d+)\b/i;
+  const looksName=l=>/^[A-Za-zÁÉÍÓÚÜÑÀÈÌÒÙÇ][A-Za-zÁÉÍÓÚÜÑÀÈÌÒÙÇ' .-]{3,}$/.test(l)&&!road.test(l)&&!junk.test(l)&&!/\b\d{5}\b/.test(l)&&!/^\*+\d{4}$/.test(l);
+
+  if(/eco\s*scooting|ecoscooting/i.test(raw)) result.company='EcoScooting';
+  else if(/quick\s*rabbit/i.test(raw)) result.company='Quick Rabbit';
+  else if(/\bimile\b/i.test(raw)) result.company='iMile Delivery';
+  else if(/\bwnb\b/i.test(raw)) result.company='WNB';
+  else if(/\bshn\b/i.test(raw)) result.company='SHN';
+
+  const cpMatch=raw.match(/\b(0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})\b/);
+  if(cpMatch){result.cp=cpMatch[1];result.confidence.cp='high'}
+
+  const fullPhoneMatch=raw.match(/(?:\+34[\s.-]*)?(?:6|7|8|9)(?:[\s.-]*\d){8}\b/);
+  const maskedMatches=[...raw.matchAll(/(?:[*•xX]{4,}[\s.-]*)(\d{4})\b/g)];
+  if(fullPhoneMatch){result.phone=fullPhoneMatch[0].replace(/[^\d+]/g,'');result.confidence.phone='high'}
+  else if(maskedMatches.length){result.phone='********'+maskedMatches[0][1];result.confidence.phone='high'}
+
+  // EcoScooting suele imprimir el identificador enmascarado justo debajo del destinatario.
+  if(result.phone && result.phone.startsWith('********')){
+   const idx=lines.findIndex(l=>/[*•xX]{4,}[\s.-]*\d{4}\b/.test(l));
+   if(idx>0){
+    for(let j=idx-1;j>=Math.max(0,idx-3);j--){if(looksName(lines[j])){result.name=lines[j];result.confidence.name='high';break}}
+   }
+  }
+
+  const addressLine=lines.find(l=>road.test(l) && /\d/.test(l)) || lines.find(l=>road.test(l));
+  if(addressLine){result.address=addressLine;result.confidence.address=/\d/.test(addressLine)?'high':'medium'}
+
+  if(result.cp){
+   const idx=lines.findIndex(l=>l.includes(result.cp));
+   if(idx>=0){
+    let same=lines[idx].replace(result.cp,' ').replace(/^[\s,;:\-]+|[\s,;:\-]+$/g,'').trim();
+    same=same.replace(/\b(spain|españa)\b/ig,'').trim();
+    if(same && /[A-Za-zÁÉÍÓÚÜÑÀÈÌÒÙÇ]/.test(same) && !road.test(same) && !junk.test(same)){
+      result.locality=same.split(/[,;|]/)[0].trim();result.confidence.locality='high';
+    }
+    if(!result.locality){
+      for(const k of [idx+1,idx-1]){
+        const cand=lines[k];
+        if(cand && /^[A-Za-zÁÉÍÓÚÜÑÀÈÌÒÙÇ .'-]{3,}$/.test(cand) && !road.test(cand) && !junk.test(cand) && !looksName(cand)){
+          result.locality=cand.trim();result.confidence.locality='medium';break;
+        }
+      }
+    }
+   }
+  }
+
+  if(!result.name){
+   const nameLabels=['destinatario','recipient','consignee','receiver','nombre','name','to'];
+   for(let i=0;i<lines.length;i++){
+    const l=low(lines[i]);
+    if(nameLabels.some(k=>l===k||l.startsWith(k+':')||l.startsWith(k+' '))){
+     let v=lines[i].replace(/^[^:]{1,20}:\s*/,'').trim();
+     if(!v || low(v)===l) v=lines[i+1]||'';
+     if(looksName(v)){result.name=v;result.confidence.name='medium';break}
+    }
+   }
+  }
+  if(!result.name){
+   const candidate=lines.find(looksName);
+   if(candidate){result.name=candidate;result.confidence.name='low'}
+  }
+
+  // Si la dirección quedó sin número, intenta unir la línea siguiente cuando sea un número/puerta breve.
+  if(result.address){
+   const ai=lines.indexOf(addressLine);
+   if(ai>=0 && !/\d/.test(result.address) && lines[ai+1] && /^[\dA-Za-zºª/\- ]{1,12}$/.test(lines[ai+1])){
+    result.address=(result.address+' '+lines[ai+1]).trim();
+   }
+  }
+  return result;
+ }
+ async function ensureOCR(){
+  if(window.Tesseract)return window.Tesseract;
+  if(ocrLoading)return ocrLoading;
+  ocrLoading=new Promise((resolve,reject)=>{const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';sc.onload=()=>resolve(window.Tesseract);sc.onerror=reject;document.head.appendChild(sc)});
+  return ocrLoading;
+ }
+ function ocrScore(data){
+  if(!data)return 0;
+  let n=0;
+  if(data.cp)n+=3;if(data.locality)n+=3;if(data.address)n+=4;if(data.name)n+=3;if(data.phone)n+=4;if(data.company)n+=1;
+  return n;
+ }
+ async function imageVariant(file,rotation=0,contrast=false){
+  const bmp=await createImageBitmap(file);
+  const maxSide=1700,scale=Math.min(1,maxSide/Math.max(bmp.width,bmp.height));
+  const sw=Math.max(1,Math.round(bmp.width*scale)),sh=Math.max(1,Math.round(bmp.height*scale));
+  const swap=Math.abs(rotation)%180===90;
+  const c=document.createElement('canvas');c.width=swap?sh:sw;c.height=swap?sw:sh;
+  const ctx=c.getContext('2d',{willReadFrequently:true});ctx.save();ctx.translate(c.width/2,c.height/2);ctx.rotate(rotation*Math.PI/180);ctx.drawImage(bmp,-sw/2,-sh/2,sw,sh);ctx.restore();
+  if(contrast){
+   const im=ctx.getImageData(0,0,c.width,c.height),d=im.data;
+   let sum=0,count=0;for(let i=0;i<d.length;i+=16){sum+=(d[i]+d[i+1]+d[i+2])/3;count++}const mean=sum/Math.max(1,count);
+   const thr=Math.max(110,Math.min(205,mean*.93));
+   for(let i=0;i<d.length;i+=4){const y=.299*d[i]+.587*d[i+1]+.114*d[i+2];const v=y>thr?255:0;d[i]=d[i+1]=d[i+2]=v}ctx.putImageData(im,0,0);
+  }
+  return await new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(new Error('No se pudo preparar imagen')),'image/jpeg',.9));
+ }
+ async function recognizeVariant(T,blob){
+  const out=await T.recognize(blob,'spa+eng');
+  const text=out&&out.data&&out.data.text||'';
+  return {text,data:parseLabelText(text)};
+ }
+ async function ocrDataFromFile(file){
+  const T=await ensureOCR();if(!T)throw new Error('OCR unavailable');
+  // Primera pasada: original y 180º. Esto corrige el caso habitual de etiquetas boca abajo sin ralentizar demasiado.
+  const candidates=[];
+  for(const rot of [0,180]){
+   const blob=await imageVariant(file,rot,true);
+   const r=await recognizeVariant(T,blob);candidates.push({...r,rotation:rot,score:ocrScore(r.data)});
+   if(r.data&&r.data.cp&&r.data.locality&&r.data.address&&r.data.name&&r.data.phone)break;
+  }
+  let best=candidates.sort((a,b)=>b.score-a.score)[0]||{data:{}};
+  // Si faltan campos importantes, prueba también 90º y 270º.
+  if(best.score<13){
+   for(const rot of [90,270]){
+    const blob=await imageVariant(file,rot,true);
+    const r=await recognizeVariant(T,blob);const cand={...r,rotation:rot,score:ocrScore(r.data)};
+    if(cand.score>best.score)best=cand;
+    if(best.data&&best.data.cp&&best.data.locality&&best.data.address&&best.data.name&&best.data.phone)break;
+   }
+  }
+  return best.data||{};
+ }
+ async function runOCR(file){
+  try{
+   setStatus('Código detectado. Enderezando y leyendo la etiqueta…','scan-status');
+   const data=await ocrDataFromFile(file);
+   if(data.cp)$('#cp').value=data.cp;if(data.locality)$('#locality').value=data.locality;if(data.name)$('#name').value=data.name;if(data.phone)$('#phone').value=data.phone;if(data.address)$('#address').value=data.address;
+   if(data.company && [...$('#scanCompany').options].some(o=>o.value===data.company)) $('#scanCompany').value=data.company;return data;
+  }catch(e){setStatus('Código leído. No pude extraer todo el texto; guardaré el paquete para revisar.','warnbox');return {}}
+ }
+
+ function registerPackage(){
+  const code=$('#code').value.trim().toUpperCase();
+  if(!code){setStatus('No se detectó código. Escríbelo o repite la foto antes de registrar.','warnbox');return false}
+  const existing=state.packages.find(p=>(p.code||'').trim().toUpperCase()===code);
+  if(existing){save();updateCounters();setStatus('⚠ PAQUETE YA RECIBIDO · '+code+' · No se vuelve a sumar.','warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);resetForNext(true);return false}
+  const p={id:'P'+Date.now()+Math.random().toString(16).slice(2),code,company:$('#scanCompany').value,cp:$('#cp').value.trim(),locality:$('#locality').value.trim(),name:$('#name').value.trim(),address:$('#address').value.trim(),phone:$('#phone').value.trim(),status:'pending',receiveStatus:'received',geoStatus:'pending',photoName:currentFile?currentFile.name:'',registeredAt:new Date().toISOString()};
+  if(p.cp&&!/^\d{5}$/.test(p.cp)){p.cp=''}
+  p.needsReviewFields=pkgMissing(p); p.needsReview=p.needsReviewFields.length>0; addPkgEvent(p,'received','Paquete recibido y registrado',p.needsReview?'Pendiente de revisión: '+p.needsReviewFields.join(', '):'Datos completos');
+  applyKnownGeo(p);state.packages.push(p);rebuildStops();
+  try{save()}catch(e){state.packages.pop();setStatus('No se pudo guardar. El almacenamiento del navegador está lleno.','warnbox');return false}
+  updateCounters();if(navigator.vibrate)navigator.vibrate(80);
+  setStatus((p.needsReview?'✓ Registrado para revisar: ':'✓ Registrado: ')+code+' · Total '+state.packages.filter(x=>x.receiveStatus==='received').length+'.','successbox');
+  resetForNext(true);return true
+ }
+ async function analyzeFile(file){
+  if(!file)return;currentFile=file;preview.src=URL.createObjectURL(file);wrap.style.display='block';setStatus('Foto tomada. Buscando código…','scan-status');
+  if(!('BarcodeDetector' in window)){setStatus('Este navegador no pudo leer el código automáticamente. Escríbelo; después intentaré leer los demás datos.','warnbox');return}
+  try{
+   const formats=await BarcodeDetector.getSupportedFormats();const detector=new BarcodeDetector({formats});let codes=[];
+   const bmp=await createImageBitmap(file);codes=await detector.detect(bmp);
+   if(!codes.length){for(const rot of [180,90,270]){try{const variant=await imageVariant(file,rot,false);const rb=await createImageBitmap(variant);codes=await detector.detect(rb);if(codes.length)break}catch(_){}}}
+   if(codes.length){const raw=(codes[0].rawValue||'').trim();$('#code').value=raw;await runOCR(file);setStatus('Etiqueta analizada. Registrando…','successbox');setTimeout(registerPackage,180)}
+   else setStatus('No pude leer el código. Acerca la etiqueta o escríbelo manualmente.','warnbox')
+  }catch(e){setStatus('No pude leer automáticamente el código. Puedes escribirlo manualmente.','warnbox')}
+ }
+ openCamera.onclick=()=>stream?stopCamera():startCamera();
+ nativeCamera.onclick=openCompatibleCamera;
+ takeShot.onclick=async()=>{if(!stream)return;const c=document.createElement('canvas');c.width=video.videoWidth||1280;c.height=video.videoHeight||720;c.getContext('2d').drawImage(video,0,0,c.width,c.height);const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',0.9));stopCamera();if(blob)await analyzeFile(new File([blob],'etiqueta-'+Date.now()+'.jpg',{type:'image/jpeg'}))};
+ photo.onchange=()=>analyzeFile(photo.files&&photo.files[0]);
+ $('#registerNow').onclick=registerPackage;
+ $('#code').addEventListener('keydown',async e=>{if(e.key==='Enter'){e.preventDefault();if(currentFile)await runOCR(currentFile);registerPackage()}});
+}
+
+function review(){
+ const pending=state.packages.filter(p=>p.needsReview||pkgMissing(p).length);
+ const labels={cp:'Código postal',locality:'Localidad',name:'Nombre',phone:'Teléfono/ID',address:'Dirección'};
+ const body=`<div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat">Pendientes<b class="orange">${pending.length}</b></div><div class="stat">Completos<b class="green">${state.packages.length-pending.length}</b></div></div>
+ <div class="notice">Aquí solo aparecen los paquetes a los que les falta algún dato. La recepción puede seguir funcionando aunque esta lista tenga pendientes.</div>
+ <div class="list">${pending.map(p=>{const miss=pkgMissing(p);return `<button class="stop" style="text-align:left;width:auto" data-reviewpkg="${esc(p.id)}"><div class="between"><b>${esc(p.code||'Sin código')}</b><span class="badge orange">${miss.length} por revisar</span></div><div class="meta" style="margin-top:7px">${esc(p.company||'')} · ${esc(p.cp||'CP pendiente')} ${esc(p.locality||'')}</div><h3>${esc(p.address||'Dirección pendiente')}</h3><div class="pillrow">${miss.map(k=>`<span class="pill">Falta ${labels[k]}</span>`).join('')}</div></button>`}).join('')||'<div class="empty">✓ No hay paquetes pendientes de revisión.</div>'}</div>
+ <div class="card"><button class="btn" data-go="scan">Volver a recepción continua</button></div>`;
+ $('#app').innerHTML=shell('Revisar paquetes',body);
+ document.querySelectorAll('[data-reviewpkg]').forEach(b=>b.onclick=()=>reviewOne(b.dataset.reviewpkg));
+}
+function reviewOne(id){
+ const p=state.packages.find(x=>x.id===id); if(!p){location.hash='review';return render()}
+ const missing=pkgMissing(p), labels={cp:'Código postal',locality:'Localidad',name:'Nombre',phone:'Teléfono / identificador',address:'Dirección'};
+ const body=`<div class="card stack"><div class="between"><div><h2 style="margin:0">Revisar paquete</h2><div class="sub">${esc(p.code||'Sin código')}</div></div><span class="badge orange">${missing.length?missing.length+' pendientes':'Completo'}</span></div>
+ <div class="warnbox">${missing.length?'Falta completar: '+missing.map(k=>labels[k]).join(', '):'Los campos principales están completos.'}</div>
+ <div class="field"><label>Empresa logística</label><select id="rCompany">${Object.keys(state.companies).map(c=>`<option ${c===p.company?'selected':''}>${esc(c)}</option>`).join('')}</select></div>
+ <div class="field"><label>Código del paquete</label><input id="rCode" value="${esc(p.code)}"></div>
+ <div class="grid"><div class="field"><label>Código postal</label><input id="rCp" inputmode="numeric" maxlength="5" value="${esc(p.cp)}"></div><div class="field"><label>Localidad</label><input id="rLocality" value="${esc(p.locality||'')}"></div></div>
+ <div class="field"><label>Nombre exacto</label><input id="rName" value="${esc(p.name)}"></div>
+ <div class="field"><label>Teléfono / identificador de etiqueta</label><input id="rPhone" value="${esc(p.phone)}" placeholder="Ej. ********5645"></div>
+ <div class="field"><label>Dirección exacta</label><input id="rAddress" value="${esc(p.address)}"></div>
+ <button class="btn" id="saveReview">Guardar revisión</button><button class="btn secondary" data-go="review">Volver a pendientes</button></div>`;
+ $('#app').innerHTML=shell('Revisión',body);
+ $('#saveReview').onclick=()=>{const code=$('#rCode').value.trim().toUpperCase(),cp=$('#rCp').value.trim();if(!code)return alert('El código es obligatorio.');if(state.packages.some(x=>x.id!==id&&(x.code||'').toUpperCase()===code))return alert('Ese código ya pertenece a otro paquete.');if(cp&&!/^\d{5}$/.test(cp))return alert('El código postal debe tener 5 cifras.');const before=JSON.stringify({company:p.company,code:p.code,cp:p.cp,locality:p.locality,name:p.name,phone:p.phone,address:p.address});Object.assign(p,{company:$('#rCompany').value,code,cp,locality:$('#rLocality').value.trim(),name:$('#rName').value.trim(),phone:$('#rPhone').value.trim(),address:$('#rAddress').value.trim(),geoStatus:'pending'});p.needsReviewFields=pkgMissing(p);p.needsReview=p.needsReviewFields.length>0;applyKnownGeo(p);rebuildStops();const after=JSON.stringify({company:p.company,code:p.code,cp:p.cp,locality:p.locality,name:p.name,phone:p.phone,address:p.address});if(before!==after)addPkgEvent(p,'correction',p.needsReview?'Revisión guardada':'Revisión completada',p.needsReview?'Aún falta: '+p.needsReviewFields.join(', '):'Datos principales completos');save();location.hash='review';render()}
+}
+function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;')}
+function packages(){
+ rebuildStops();
+ const body=`<div class="stats"><div class="stat">Registrados<b class="blue">${state.packages.length}</b></div><div class="stat">Paradas<b class="green">${state.stops.length}</b></div><div class="stat">En lote<b class="orange">${state.stops.filter(s=>s.packageIds.length>1).reduce((n,s)=>n+s.packageIds.length,0)}</b></div></div>
+ <div class="card stack"><button class="btn" data-go="scan">＋ Registrar otro paquete</button><button class="btn secondary" data-go="review">Revisar pendientes (${state.packages.filter(p=>p.needsReview).length})</button><button class="btn secondary" data-go="lots">Ver lotes detectados</button></div>
+ <div class="section-title">Paquetes registrados</div><div class="list">${state.packages.slice().reverse().map(p=>{const st=state.stops.find(s=>s.packageIds.includes(p.id));return `<button class="stop" style="text-align:left;width:auto" data-pkg="${esc(p.id)}"><div class="between"><b>${esc(p.code||'Sin código')}</b><span class="badge ${st&&st.packageIds.length>1?'orange':''}">${st&&st.packageIds.length>1?'LOTE · '+st.packageIds.length:'1 paquete'}</span></div><div class="meta" style="margin-top:7px">${esc(p.company||'')} · ${esc(p.cp||'')} ${esc(p.locality||'')}</div><h3>${esc(p.address||'Dirección pendiente')}</h3><div>${esc(p.name||'Sin nombre')} · ${esc(p.phone||'Sin teléfono')}</div></button>`}).join('')||'<div class="empty">Aún no hay paquetes registrados.</div>'}</div>`;
+ $('#app').innerHTML=shell('Paquetes',body); document.querySelectorAll('[data-pkg]').forEach(b=>b.onclick=()=>packageDetail(b.dataset.pkg));
+}
+function packageDetail(id){
+ const p=state.packages.find(x=>x.id===id)||state.packageArchive.find(x=>x.id===id); if(!p){location.hash='packages';return render()} const archived=state.packageArchive.includes(p); rebuildStops(); const st=!archived&&state.stops.find(s=>s.packageIds.includes(id)); ensureEvents(p);
+ const eventHtml=p.events.slice().reverse().map(e=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><div class="between"><b>${esc(e.label||e.type)}</b><span class="sub">${esc(fmtDateTime(e.at))}</span></div>${e.details?`<div class="sub" style="margin-top:4px">${esc(e.details)}</div>`:''}</div>`).join('')||'<div class="empty">Sin movimientos registrados.</div>';
+ const body=`<div class="card stack"><div class="between"><div><h2 style="margin:0">Ficha del paquete</h2><div class="sub">Registrado ${esc(fmtDateTime(p.registeredAt))}</div></div><span class="badge ${archived?'green':st&&st.packageIds.length>1?'orange':''}">${archived?'Histórico':st&&st.packageIds.length>1?'LOTE · '+st.packageIds.length:'Individual'}</span></div>
+ <div class="between"><span>Estado</span><b>${esc(pkgStatusText(p))}</b></div>
+ <div class="field"><label>Empresa logística</label><select id="editCompany" ${archived?'disabled':''}>${Object.keys(state.companies).map(c=>`<option ${c===p.company?'selected':''}>${esc(c)}</option>`).join('')}</select></div><div class="field"><label>Código del paquete</label><input id="editCode" value="${esc(p.code)}" ${archived?'disabled':''}></div><div class="field"><label>Nombre exacto</label><input id="editName" value="${esc(p.name)}" ${archived?'disabled':''}></div><div class="field"><label>Teléfono / identificador de etiqueta</label><input id="editPhone" value="${esc(p.phone)}" ${archived?'disabled':''}></div><div class="field"><label>Dirección exacta</label><input id="editAddress" value="${esc(p.address)}" ${archived?'disabled':''}></div><div class="field"><label>Código postal</label><input id="editCp" value="${esc(p.cp)}" inputmode="numeric" ${archived?'disabled':''}></div><div class="field"><label>Localidad</label><input id="editLocality" value="${esc(p.locality||'')}" ${archived?'disabled':''}></div>
+ ${archived?'<div class="notice" style="margin:0">Este paquete pertenece a una jornada cerrada. Se conserva como histórico y no se elimina desde la operativa normal.</div>':'<button class="btn" id="saveEdit">Guardar cambios</button>'}</div>
+ <div class="section-title">Historial del paquete</div><div class="card">${eventHtml}</div><div class="card"><button class="btn secondary" data-go="${archived?'history':'packages'}">Volver</button></div>`;
+ $('#app').innerHTML=shell('Paquete',body);
+ if(!archived)$('#saveEdit').onclick=()=>{const code=$('#editCode').value.trim().toUpperCase(),cp=$('#editCp').value.trim(); if(!code)return alert('El código es obligatorio.'); if(state.packages.some(x=>x.id!==id&&(x.code||'').toUpperCase()===code))return alert('Ese código ya pertenece a otro paquete.');if(cp&&!/^\d{5}$/.test(cp))return alert('El código postal debe tener 5 cifras.');const before={company:p.company,code:p.code,name:p.name,phone:p.phone,address:p.address,cp:p.cp,locality:p.locality};Object.assign(p,{company:$('#editCompany').value,code,name:$('#editName').value.trim(),phone:$('#editPhone').value.trim(),address:$('#editAddress').value.trim(),cp,locality:$('#editLocality').value.trim(),geoStatus:'pending'}); p.needsReviewFields=pkgMissing(p);p.needsReview=p.needsReviewFields.length>0;applyKnownGeo(p);rebuildStops();const changes=[];for(const k of Object.keys(before))if(String(before[k]||'')!==String(p[k]||''))changes.push(k);if(changes.length)addPkgEvent(p,'correction','Datos del paquete corregidos','Campos modificados: '+changes.join(', '));save();alert('Paquete actualizado.');render()};
+}
+function geoKey(p){return [p.cp||'',p.locality||'',p.address||''].join('|||')}
+function applyKnownGeo(p){const m=state.geoMemory[geoKey(p)];if(m){p.lat=m.lat;p.lng=m.lng;p.geoX=m.x;p.geoY=m.y;p.geoStatus='verified-memory';p.geoVerified=true;assignByZone(p);return true}return false}
+function pointInPoly(x,y,pts){let inside=false;for(let i=0,j=pts.length-1;i<pts.length;j=i++){const xi=pts[i].x,yi=pts[i].y,xj=pts[j].x,yj=pts[j].y;const hit=((yi>y)!=(yj>y))&&(x<(xj-xi)*(y-yi)/((yj-yi)||0.00001)+xi);if(hit)inside=!inside}return inside}
+function assignByZone(p){if(p.geoX==null||p.geoY==null)return;const matches=state.zones.filter(z=>z.points&&z.points.length>=3&&pointInPoly(p.geoX,p.geoY,z.points));if(matches.length===1){p.zoneId=matches[0].id;p.driverId=matches[0].driverId||'';p.assignmentStatus=p.driverId?'automatic':'zone-unassigned'}else if(matches.length>1){p.assignmentStatus='zone-conflict';p.driverId=''}else{p.assignmentStatus='outside-zone';p.driverId=''}}
+function geoPending(){if(state.role!=='admin'){location.hash='home';return render()}state.packages.forEach(applyKnownGeo);save();const pending=state.packages.filter(p=>!p.geoVerified&&!p.geoStatus?.startsWith('verified'));const body=`<div class="stats"><div class="stat">Pendientes<b class="orange">${pending.length}</b></div><div class="stat">Verificados<b class="green">${state.packages.length-pending.length}</b></div><div class="stat">Aprendidos<b class="blue">${Object.keys(state.geoMemory).length}</b></div></div><div class="notice">Si una dirección no se puede ubicar con seguridad, se guarda aquí. La corriges una vez y la app recordará exactamente CP + localidad + dirección.</div><div class="list">${pending.map(p=>`<button class="stop" style="text-align:left;width:auto" data-geopkg="${esc(p.id)}"><div class="between"><b>${esc(p.code)}</b><span class="badge orange">Ubicación pendiente</span></div><h3>${esc(p.address||'Dirección sin completar')}</h3><div class="meta">${esc(p.cp||'')} ${esc(p.locality||'')}</div></button>`).join('')||'<div class="empty">No hay paquetes pendientes de geolocalizar.</div>'}</div>`;$('#app').innerHTML=shell('Sin geolocalizar',body);document.querySelectorAll('[data-geopkg]').forEach(b=>b.onclick=()=>manualGeo(b.dataset.geopkg));}
+function manualGeo(id){const p=state.packages.find(x=>x.id===id);if(!p)return;let selected={x:p.geoX??null,y:p.geoY??null};const body=`<div class="card stack"><h2 style="margin:0">Geolocalizar manualmente</h2><div class="field"><label>Dirección exacta</label><input id="gAddr" value="${esc(p.address||'')}"></div><div class="field"><label>Código postal</label><input id="gCp" value="${esc(p.cp||'')}"></div><div class="field"><label>Localidad</label><input id="gLoc" value="${esc(p.locality||'')}" placeholder="Albal / Catarroja / Massanassa..."></div><div class="hint">Toca el mapa de demostración donde corresponde la dirección. En la versión final este será el mapa real.</div></div><div id="manualMap" class="map" style="touch-action:none"><div class="road" style="width:120%;height:10px;left:-10%;top:45%;transform:rotate(-12deg)"></div><div class="road" style="width:10px;height:120%;left:56%;top:-10%;transform:rotate(8deg)"></div><div id="picked"></div></div><div class="card stack"><div id="coordText" class="hint">Toca el mapa para fijar la ubicación.</div><button class="btn green" id="saveGeo">Guardar ubicación verificada y aprenderla</button><button class="btn secondary" data-go="geoPending">Cancelar</button></div>`;$('#app').innerHTML=shell('Ubicación manual',body);const m=$('#manualMap'),picked=$('#picked'),txt=$('#coordText');function draw(){picked.innerHTML=selected.x==null?'':`<div class="pin done" style="left:calc(${selected.x}% - 18px);top:calc(${selected.y}% - 18px)"><span>✓</span></div>`;txt.textContent=selected.x==null?'Toca el mapa para fijar la ubicación.':`Punto seleccionado: ${selected.x.toFixed(1)}%, ${selected.y.toFixed(1)}%`;}draw();m.onclick=e=>{const r=m.getBoundingClientRect();selected.x=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100));selected.y=Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100));draw()};$('#saveGeo').onclick=()=>{if(selected.x==null){alert('Primero toca el mapa.');return}p.address=$('#gAddr').value;p.cp=$('#gCp').value.trim();p.locality=$('#gLoc').value.trim();p.geoX=selected.x;p.geoY=selected.y;p.lat=39.38+(50-selected.y)*0.0008;p.lng=-0.42+(selected.x-50)*0.0008;p.geoStatus='verified-manual';p.geoVerified=true;state.geoMemory[geoKey(p)]={x:p.geoX,y:p.geoY,lat:p.lat,lng:p.lng,verifiedAt:new Date().toISOString()};assignByZone(p);save();alert('Ubicación guardada. Esta dirección exacta queda aprendida.');location.hash='geoPending';render()};bindNav();}
+function geoMemory(){if(state.role!=='admin'){location.hash='home';return render()}const rows=Object.entries(state.geoMemory);const body=`<div class="card"><b>Memoria de direcciones verificadas</b><div class="sub">Se reutilizan únicamente cuando CP + localidad + dirección coinciden exactamente.</div></div><div class="list">${rows.map(([k,v])=>{const [cp,loc,addr]=k.split('|||');return `<div class="stop"><div class="between"><b>${esc(addr||'Sin dirección')}</b><span class="badge green">Verificada</span></div><div class="meta">${esc(cp)} · ${esc(loc)}</div><div class="hint" style="margin-top:6px">Guardada ${new Date(v.verifiedAt||Date.now()).toLocaleString('es-ES')}</div></div>`}).join('')||'<div class="empty">Todavía no hay direcciones aprendidas.</div>'}</div>`;$('#app').innerHTML=shell('Direcciones aprendidas',body);}
+function drivers(){if(state.role!=='admin'){location.hash='home';return render()}const body=`<div class="card stack"><h2 style="margin:0">Crear repartidor</h2><div class="field"><label>Nombre</label><input id="dName"></div><div class="field"><label>Apellidos</label><input id="dLast"></div><div class="field"><label>DNI / NIE</label><input id="dDoc"></div><button class="btn" id="addDriver">Crear perfil</button></div><div class="section-title">Repartidores</div><div class="list">${state.drivers.map(d=>{const n=state.packages.filter(p=>p.driverId===d.id).length;return `<div class="stop"><div class="between"><div><b>${esc(d.name)} ${esc(d.last)}</b><div class="meta">${esc(maskDoc(d.doc))}</div></div><span class="badge green">Activo</span></div><div class="pillrow"><span class="pill">${n} paquetes asignados</span></div><div class="actions"><button class="btn secondary" data-drroute="${d.id}">Ver ruta</button></div></div>`}).join('')||'<div class="empty">Aún no hay repartidores.</div>'}</div>`;$('#app').innerHTML=shell('Repartidores',body);$('#addDriver').onclick=()=>{const name=$('#dName').value.trim(),last=$('#dLast').value.trim(),doc=$('#dDoc').value.trim();if(!name||!last||!doc){alert('Completa nombre, apellidos y DNI/NIE.');return}state.drivers.push({id:'D'+Date.now(),name,last,doc,active:true});save();render()};document.querySelectorAll('[data-drroute]').forEach(b=>b.onclick=()=>{sessionStorage.setItem('driverRouteId',b.dataset.drroute);location.hash='driverRoute';render()});}
+function maskDoc(v){v=String(v||'');return v.length<5?v:v.slice(0,2)+'••••'+v.slice(-2)}
+function zones(){if(state.role!=='admin'){location.hash='home';return render()}let pts=[];const body=`<div class="card stack"><h2 style="margin:0">Dibujar zona</h2><div class="field"><label>Nombre de zona</label><input id="zName" placeholder="Ej. Albal norte"></div><div class="field"><label>Asignar a repartidor</label><select id="zDriver"><option value="">Sin asignar</option>${state.drivers.map(d=>`<option value="${d.id}">${esc(d.name)} ${esc(d.last)}</option>`).join('')}</select></div><div class="hint">Toca al menos 3 puntos del mapa para dibujar el polígono de reparto.</div></div><div id="zoneMap" class="map" style="touch-action:none"><div class="road" style="width:120%;height:10px;left:-10%;top:45%;transform:rotate(-12deg)"></div><div class="road" style="width:10px;height:120%;left:56%;top:-10%;transform:rotate(8deg)"></div><svg id="zoneSvg" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%"></svg></div><div class="card stack"><div id="zMsg" class="hint">0 puntos marcados</div><div class="mini-actions"><button class="btn secondary" id="zUndo">Deshacer</button><button class="btn secondary" id="zClear">Limpiar</button></div><button class="btn green" id="zSave">Guardar zona</button></div><div class="section-title">Zonas guardadas</div><div class="list">${state.zones.map(z=>{const d=state.drivers.find(x=>x.id===z.driverId);return `<div class="stop"><div class="between"><b>${esc(z.name)}</b><span class="badge">${z.points.length} puntos</span></div><div class="meta">${d?'Repartidor: '+esc(d.name+' '+d.last):'Sin repartidor asignado'}</div></div>`}).join('')||'<div class="empty">Todavía no hay zonas.</div>'}</div>`;$('#app').innerHTML=shell('Zonas de reparto',body);const m=$('#zoneMap'),svg=$('#zoneSvg'),msg=$('#zMsg');function redraw(){svg.innerHTML=pts.length?`<polyline points="${pts.map(p=>p.x+','+p.y).join(' ')}${pts.length>=3?' '+pts[0].x+','+pts[0].y:''}" fill="${pts.length>=3?'rgba(23,105,224,.18)':'none'}" stroke="#1769e0" stroke-width="1.2" vector-effect="non-scaling-stroke"/>${pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="1.8" fill="#1769e0"/>`).join('')}`:'';msg.textContent=pts.length+' puntos marcados';}m.onclick=e=>{const r=m.getBoundingClientRect();pts.push({x:(e.clientX-r.left)/r.width*100,y:(e.clientY-r.top)/r.height*100});redraw()};$('#zUndo').onclick=()=>{pts.pop();redraw()};$('#zClear').onclick=()=>{pts=[];redraw()};$('#zSave').onclick=()=>{if(pts.length<3){alert('Marca al menos 3 puntos.');return}const name=$('#zName').value.trim()||('Zona '+(state.zones.length+1));state.zones.push({id:'Z'+Date.now(),name,driverId:$('#zDriver').value,points:pts.slice()});state.packages.forEach(assignByZone);save();alert('Zona guardada y paquetes geolocalizados reevaluados.');render()};}
+function driverRoute(){const id=sessionStorage.getItem('driverRouteId');const d=state.drivers.find(x=>x.id===id);if(!d){location.hash='drivers';return render()}const ps=state.packages.filter(p=>p.driverId===id&&p.geoVerified);ps.sort((a,b)=>(a.geoY??0)-(b.geoY??0)||(a.geoX??0)-(b.geoX??0));const body=`<div class="card"><div class="between"><div><b>${esc(d.name)} ${esc(d.last)}</b><div class="sub">Ruta provisional por coordenadas</div></div><span class="badge">${ps.length} paquetes</span></div></div><div class="list">${ps.map((p,i)=>`<div class="stop"><div class="row"><span class="num">${i+1}</span><div><b>${esc(p.address||'Sin dirección')}</b><div class="meta">${esc(p.cp||'')} ${esc(p.locality||'')}</div></div></div><div class="pillrow"><span class="pill">${esc(p.code)}</span></div></div>`).join('')||'<div class="empty">Este repartidor aún no tiene paquetes geolocalizados dentro de su zona.</div>'}</div><div class="notice">La numeración ya se genera por perfil. La optimización real por carretera se conectará con el proveedor de mapas en la fase siguiente.</div>`;$('#app').innerHTML=shell('Ruta del repartidor',body,'route');}
+function keyOf(p){return [p.company||(state.jornada&&state.jornada.company)||'',p.name||'',p.phone||'',p.address||''].join('|||')}
+function rebuildStops(){const groups={};state.packages.forEach(p=>{const k=keyOf(p);if(!groups[k])groups[k]=[];groups[k].push(p)});state.stops=Object.values(groups).map((ps,i)=>({id:'S'+i,num:i+1,name:ps[0].name,address:ps[0].address,phone:ps[0].phone,cp:ps[0].cp,packageIds:ps.map(x=>x.id),status:ps.every(x=>x.status==='delivered')?'done':ps.some(x=>x.status==='incident')?'fail':'pending'}))}
+function lots(){ rebuildStops(); const extras=state.stops.reduce((a,s)=>a+Math.max(0,s.packageIds.length-1),0); const body=`<div class="stats"><div class="stat">Paquetes<b class="blue">${state.packages.length}</b></div><div class="stat">Principales<b class="green">${state.stops.length}</b></div><div class="stat">Adicionales<b class="orange">${extras}</b></div></div><div class="section-title">Lotes detectados</div><div class="list">${state.stops.map(s=>`<div class="stop"><div class="between"><div class="row"><span class="num">${s.num}</span><div><b>${s.address}</b><div class="meta">${s.name||'Sin nombre'} · ${s.cp}</div></div></div><span class="badge ${s.packageIds.length>1?'orange':''}">${s.packageIds.length} paquete${s.packageIds.length!==1?'s':''}</span></div></div>`).join('')||'<div class="empty">Aún no hay paquetes.</div>'}</div><div class="card stack"><button class="btn" data-go="route">Confirmar carga y comenzar reparto</button><button class="btn secondary" data-go="scan">Seguir cargando</button></div>`; $('#app').innerHTML=shell('Grupos / Lotes',body)}
+function route(){ rebuildStops(); const counts={pending:0,done:0,fail:0};state.stops.forEach(s=>counts[s.status]++); const body=`<div class="stats"><div class="stat">Pendientes<b class="blue">${counts.pending}</b></div><div class="stat">Entregadas<b class="green">${counts.done}</b></div><div class="stat">Incidencias<b class="red">${counts.fail}</b></div></div><div class="tabs"><button class="active">Todas</button><button>Pendientes</button><button>Entregadas</button><button>Incidencias</button></div><div class="list">${state.stops.map(s=>`<div class="stop"><div class="row"><span class="num">${s.num}</span><div><div class="meta">${s.cp}</div><h3>${s.address}</h3></div></div><div>${s.name||'Sin nombre'} · ${s.phone||'Sin teléfono'}</div><div class="pillrow"><span class="pill">${s.packageIds.length} paquete${s.packageIds.length!==1?'s':''}</span><span class="pill">Entrega a domicilio</span></div><div class="actions"><button class="btn red" data-inc="${s.id}">Incidencia</button><button class="btn green" data-del="${s.id}">Entregado</button></div></div>`).join('')||'<div class="empty">No hay paradas.</div>'}</div><div class="card"><button class="btn" data-go="close">Cerrar jornada</button></div>`; $('#app').innerHTML=shell('Ruta',body,'route'); document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>setStop(b.dataset.del,'delivered')); document.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>incident(b.dataset.inc))}
+function setStop(id,status){const s=state.stops.find(x=>x.id===id);s.packageIds.forEach(pid=>{const p=state.packages.find(p=>p.id===pid);p.status=status;addPkgEvent(p,status,status==='delivered'?'Paquete entregado':'Estado actualizado')});rebuildStops();save();render()}
+function incident(id){const reason=prompt('Motivo de incidencia:','Cliente ausente'); if(reason===null)return; const s=state.stops.find(x=>x.id===id); s.packageIds.forEach(pid=>{const p=state.packages.find(p=>p.id===pid);p.status='incident';addPkgEvent(p,'incident','Incidencia registrada',reason);state.incidents.push({packageId:pid,reason})}); rebuildStops();save();render()}
+function map(){ rebuildStops(); const pins=state.stops.slice(0,18).map((s,i)=>{const x=8+(i*17)%78,y=12+(i*29)%75;return `<div class="pin ${s.status}" style="left:${x}%;top:${y}%"><span>${s.packageIds.length}</span></div>`}).join(''); const body=`<div class="stats"><div class="stat">Pendientes<b class="blue">${state.stops.filter(s=>s.status==='pending').length}</b></div><div class="stat">Entregadas<b class="green">${state.stops.filter(s=>s.status==='done').length}</b></div><div class="stat">Incidencias<b class="red">${state.stops.filter(s=>s.status==='fail').length}</b></div></div><div class="map"><div class="road" style="width:120%;height:10px;left:-10%;top:45%;transform:rotate(-12deg)"></div><div class="road" style="width:10px;height:120%;left:56%;top:-10%;transform:rotate(8deg)"></div>${pins}</div><div class="notice">Mapa de demostración. La geocodificación y optimización real se conectarán en la siguiente fase.</div>`; $('#app').innerHTML=shell('Ruta · Mapa',body,'map')}
+function close(){ rebuildStops(); const delivered=state.packages.filter(p=>p.status==='delivered').length, incidents=state.packages.filter(p=>p.status==='incident').length,pending=state.packages.length-delivered-incidents; const reasons={};state.incidents.forEach(i=>reasons[i.reason]=(reasons[i.reason]||0)+1); const body=`<div class="stats"><div class="stat">Cargados<b class="blue">${state.packages.length}</b></div><div class="stat">Entregados<b class="green">${delivered}</b></div><div class="stat">Incidencias<b class="red">${incidents}</b></div></div>${pending?`<div class="notice">⚠️ Faltan <b>${pending}</b> paquetes por justificar antes de cerrar.</div>`:''}<div class="section-title">Incidencias registradas</div><div class="card">${Object.entries(reasons).map(([r,n])=>`<div class="between" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>${r}</span><b>${n}</b></div>`).join('')||'<div class="empty">Sin incidencias.</div>'}</div><div class="card"><button class="btn" id="closeBtn" ${pending?'disabled style="opacity:.5"':''}>Cerrar jornada</button></div>`; $('#app').innerHTML=shell('Cierre de jornada',body); const b=$('#closeBtn'); if(b&&!pending)b.onclick=()=>{const earn=calcEarnings();const closedAt=new Date().toISOString();const jornadaSnapshot=state.jornada?{...state.jornada}:null;state.packages.forEach(p=>{p.closedAt=closedAt;p.jornadaClosed=jornadaSnapshot;addPkgEvent(p,'closed','Jornada cerrada',p.status==='delivered'?'Entregado':'Incidencia');state.packageArchive.push(p)});state.history.unshift({date:new Date().toLocaleDateString('es-ES'),delivered,incidents,earnings:earn,closedAt,packageIds:state.packages.map(p=>p.id)});state.jornada=null;state.packages=[];state.stops=[];state.incidents=[];save();alert('Jornada cerrada. Los paquetes se han movido al historial y no se han eliminado.');location.hash='history';render()}}
+function calcEarnings(){ if(!state.jornada)return 0; rebuildStops(); const company=state.companies[state.jornada.company]||{rates:{'*':{first:1,extra:.2}}}; let total=0;state.stops.forEach(s=>{const delivered=s.packageIds.map(id=>state.packages.find(p=>p.id===id)).filter(p=>p.status==='delivered').length;if(!delivered)return;const r=company.rates[s.cp]||company.rates['*']||{first:1,extra:.2}; total+=r.first+Math.max(0,delivered-1)*r.extra});return +total.toFixed(2)}
+function history(){
+ const total=state.history.reduce((a,x)=>a+(x.earnings||0),0),del=state.history.reduce((a,x)=>a+(x.delivered||0),0),arch=state.packageArchive||[];
+ const body=`<div class="tabs"><button class="active">Jornadas</button><button>Ganancias</button></div><div class="card"><table class="table"><thead><tr><th>Día</th><th>Entregados</th><th>Incid.</th><th class="amount">Ganancias</th></tr></thead><tbody>${state.history.map(h=>`<tr><td>${esc(h.date)}</td><td>${h.delivered}</td><td>${h.incidents}</td><td class="amount">${money(h.earnings||0)}</td></tr>`).join('')}</tbody><tfoot><tr><th>Total</th><th>${del}</th><th></th><th class="amount">${money(total)}</th></tr></tfoot></table></div>
+ <div class="section-title">Historial de paquetes</div><div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat">Conservados<b class="blue">${arch.length}</b></div><div class="stat">Entregados<b class="green">${arch.filter(p=>p.status==='delivered').length}</b></div></div>
+ <div class="list">${arch.slice().reverse().slice(0,50).map(p=>`<button class="stop" style="text-align:left;width:auto" data-hpkg="${esc(p.id)}"><div class="between"><b>${esc(p.code||'Sin código')}</b><span class="badge ${p.status==='delivered'?'green':'red'}">${esc(pkgStatusText(p))}</span></div><div class="meta" style="margin-top:7px">${esc(p.company||'')} · ${esc(p.cp||'')} ${esc(p.locality||'')}</div><h3>${esc(p.address||'Dirección no disponible')}</h3><div class="sub">Jornada cerrada: ${esc(fmtDateTime(p.closedAt))}</div></button>`).join('')||'<div class="empty">Todavía no hay paquetes de jornadas cerradas.</div>'}</div>
+ <div class="notice">Las ganancias solo se muestran aquí. Los paquetes de jornadas cerradas se conservan en el historial; no se eliminan automáticamente.</div>`;
+ $('#app').innerHTML=shell('Historial',body,'history');document.querySelectorAll('[data-hpkg]').forEach(b=>b.onclick=()=>packageDetail(b.dataset.hpkg));
+}
+function bindNav(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go;render()})}
+window.addEventListener('hashchange',render);render();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+
+  </script>
+</body>
+</html>

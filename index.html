@@ -374,7 +374,7 @@ function scan(){
   p.needsReviewFields=pkgMissing(p); p.needsReview=p.needsReviewFields.length>0; addPkgEvent(p,'received','Paquete recibido y registrado',p.needsReview?'Pendiente de revisión: '+p.needsReviewFields.join(', '):'Datos completos');
   applyKnownGeo(p);state.packages.push(p);rebuildStops();
   try{save()}catch(e){state.packages.pop();setStatus('No se pudo guardar. El almacenamiento del navegador está lleno.','warnbox');return false}
-  updateCounters()scanSound('ok');;if(navigator.vibrate)navigator.vibrate(80);
+  updateCounters();scanSound('ok');if(navigator.vibrate)navigator.vibrate(80);
   setStatus((p.needsReview?'✓ Registrado para revisar: ':'✓ Registrado: ')+code+' · Total '+state.packages.filter(x=>x.receiveStatus==='received').length+'.','successbox');
   resetForNext(true);return true
  }

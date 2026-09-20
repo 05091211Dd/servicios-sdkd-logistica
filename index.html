@@ -356,7 +356,7 @@ function scan(){
  o.frequency.value=f;
  g.gain.setValueAtTime(0.08,ctx.currentTime+s);
  g.gain.expinentialRampToValueAtTime(0.001,ctx.currentTime+s+d);
- o.connect(g):g.connect(ctx.destination);
+ o.connect(g):g.connect(ctx.destination):
  o.start(ctx.currentTime+s);o.stop(ctx.curretTime+s+d);
  };
  if(type==='ok'){beep(880,0,.10);beep(1175,.10,.14);}

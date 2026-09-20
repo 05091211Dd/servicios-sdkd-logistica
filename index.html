@@ -346,17 +346,35 @@ function scan(){
   }catch(e){setStatus('Código leído. No pude extraer todo el texto; guardaré el paquete para revisar.','warnbox');return {}}
  }
 
+ //SONIDO
+ function scanSound(type){
+ try{
+ const A=Window.AudioContext||window.webkitAudioContext;
+ const ctx=new A();
+ const beep=(f,s,d)=>{
+ const  o=ctx.createOscillator(),g=ctx.createGain();
+ o.frequency.value=f;
+ g.gain.setValueAtTime(0.08,ctx.currentTime+s);
+ g.gain.expinentialRampToValueAtTime(0.001,ctx.currentTime+s+d);
+ o.connect(g):g.connect(ctx.destination);
+ o.start(ctx.currentTime+s);o.stop(ctx.curretTime+s+d);
+ };
+ if(type==='ok'){beep(880,0,.10);beep(1175,.10,.14);}
+ if(type==='error') {beep(220,0,.16);beep(165,.13,.22);}
+ }catch(e){}
+ }
+ 
  function registerPackage(){
   const code=$('#code').value.trim().toUpperCase();
   if(!code){setStatus('No se detectó código. Escríbelo o repite la foto antes de registrar.','warnbox');return false}
   const existing=state.packages.find(p=>(p.code||'').trim().toUpperCase()===code);
-  if(existing){save();updateCounters();setStatus('⚠ PAQUETE YA RECIBIDO · '+code+' · No se vuelve a sumar.','warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);resetForNext(true);return false}
+  if(existing){scanSound('error');save();updateCounters();setStatus('⚠ PAQUETE YA RECIBIDO · '+code+' · No se vuelve a sumar.','warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);resetForNext(true);return false}
   const p={id:'P'+Date.now()+Math.random().toString(16).slice(2),code,company:$('#scanCompany').value,cp:$('#cp').value.trim(),locality:$('#locality').value.trim(),name:$('#name').value.trim(),address:$('#address').value.trim(),phone:$('#phone').value.trim(),status:'pending',receiveStatus:'received',geoStatus:'pending',photoName:currentFile?currentFile.name:'',registeredAt:new Date().toISOString()};
   if(p.cp&&!/^\d{5}$/.test(p.cp)){p.cp=''}
   p.needsReviewFields=pkgMissing(p); p.needsReview=p.needsReviewFields.length>0; addPkgEvent(p,'received','Paquete recibido y registrado',p.needsReview?'Pendiente de revisión: '+p.needsReviewFields.join(', '):'Datos completos');
   applyKnownGeo(p);state.packages.push(p);rebuildStops();
   try{save()}catch(e){state.packages.pop();setStatus('No se pudo guardar. El almacenamiento del navegador está lleno.','warnbox');return false}
-  updateCounters();if(navigator.vibrate)navigator.vibrate(80);
+  updateCounters()scanSound('ok');;if(navigator.vibrate)navigator.vibrate(80);
   setStatus((p.needsReview?'✓ Registrado para revisar: ':'✓ Registrado: ')+code+' · Total '+state.packages.filter(x=>x.receiveStatus==='received').length+'.','successbox');
   resetForNext(true);return true
  }

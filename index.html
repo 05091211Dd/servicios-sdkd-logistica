@@ -173,8 +173,7 @@ function scan(){
   try{
    const found=await detector.detect(video);
    if(found&&found.length){
-    const 
-const ranked=found.slice().sort((a,b)=>{const aq=(a.format||'').toLowerCase().includes('qr')?1:0,bq=(b.format||'').toLowerCase().includes('qr')?1:0;if(aq!==bq)return aq-bq;return String(b.rawValue||'').length-String(a.rawValue||'').length});
+    const  ranked=found.slice().sort((a,b)=>{const aq=(a.format||'').toLowerCase().includes('qr')?1:0,bq=(b.format||'').toLowerCase().includes('qr')?1:0;if(aq!==bq)return aq-bq;return String(b.rawValue||'').length-String(a.rawValue||'').length});
 const code=String(ranked[0].rawValue||'').trim().toUpperCase(); const now=Date.now();
     if(code && (code!==lastContinuousCode || now-lastContinuousAt>1800)){
       lastContinuousCode=code;lastContinuousAt=now;

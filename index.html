@@ -178,7 +178,7 @@ const code=String(ranked[0].rawValue||'').trim().toUpperCase(); const now=Date.n
     if(code && (code!==lastContinuousCode || now-lastContinuousAt>1800)){
       lastContinuousCode=code;lastContinuousAt=now;
       if(state.packages.some(p=>(p.code||'').trim().toUpperCase()===code)){
-        setStatus('⚠ PAQUETE YA RECIBIDO · '+code,'warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);
+       scanSound('error'); setStatus('⚠ PAQUETE YA RECIBIDO · '+code,'warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);
       }else{
         const file=await captureFrameFile();
         registerContinuous(code,file);
@@ -369,7 +369,8 @@ const code=String(ranked[0].rawValue||'').trim().toUpperCase(); const now=Date.n
   const code=$('#code').value.trim().toUpperCase();
   if(!code){setStatus('No se detectó código. Escríbelo o repite la foto antes de registrar.','warnbox');return false}
   const existing=state.packages.find(p=>(p.code||'').trim().toUpperCase()===code);
-  if(existing){scanSound('error');save();updateCounters();setStatus('⚠ PAQUETE YA RECIBIDO · '+code+' · No se vuelve a sumar.','warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);resetForNext(true);return false}
+  if(existing){scanSound('error');save();updateCounters();scanSound('error');setStatus('⚠ PAQUETE YA RECIBIDO · '+code,'warnbox');if(navigator.vibrate)navigator.vibrate([80,60,80]);
+resetForNext(true);return false}
   const p={id:'P'+Date.now()+Math.random().toString(16).slice(2),code,company:$('#scanCompany').value,cp:$('#cp').value.trim(),locality:$('#locality').value.trim(),name:$('#name').value.trim(),address:$('#address').value.trim(),phone:$('#phone').value.trim(),status:'pending',receiveStatus:'received',geoStatus:'pending',photoName:currentFile?currentFile.name:'',registeredAt:new Date().toISOString()};
   if(p.cp&&!/^\d{5}$/.test(p.cp)){p.cp=''}
   p.needsReviewFields=pkgMissing(p); p.needsReview=p.needsReviewFields.length>0; addPkgEvent(p,'received','Paquete recibido y registrado',p.needsReview?'Pendiente de revisión: '+p.needsReviewFields.join(', '):'Datos completos');
